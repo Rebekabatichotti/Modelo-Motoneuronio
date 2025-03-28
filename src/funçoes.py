@@ -54,7 +54,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import signal
 
-def plot_disparos_neuronios(spiketrains, neuronio, delta_t=0.00005, filtro_ordem=4, freq_corte=0.001, tempo_max=1000):
+def plot_disparos_neuronios(spiketrains, neuronio, delta_t=0.00005, filtro_ordem=4, freq_corte=0.001, tempo_max=1):
     """
     Função que gera o impulso de Dirac para os tempos de disparo de um neurônio.
     
@@ -64,19 +64,19 @@ def plot_disparos_neuronios(spiketrains, neuronio, delta_t=0.00005, filtro_ordem
         delta_t: Intervalo de tempo. 
         filtro_ordem : Ordem do filtro Butterworth. 
         freq_corte: Frequência de corte normalizada para o filtro Butterworth.
-        tempo_max: Tempo máximo para o eixo x (em milissegundos). 
+        tempo_max: Tempo máximo para o eixo x (em segundos). 
     """
     
     # Array com os tempos de disparo do neurônio
     tempos_neuronios = spiketrains[neuronio].as_array()
 
     # Criação do vetor de tempo
-    t = np.arange(0, tempo_max, delta_t * 1000)
+    t = np.arange(0, tempo_max, delta_t)
     impulso_dirac = np.zeros_like(t)
 
     # Adiciona o impulso de Dirac em cada tempo de disparo do neurônio
     for tempo in tempos_neuronios:
-        idx = np.argmin(np.abs(t - tempo))  # encontra o índice mais próximo do tempo de disparo
+        idx = np.argmin(np.abs(t - tempo*1000))  # encontra o índice mais próximo do tempo de disparo
         impulso_dirac[idx] = 1 / delta_t
 
     # Filtro Butterworth
@@ -88,7 +88,7 @@ def plot_disparos_neuronios(spiketrains, neuronio, delta_t=0.00005, filtro_ordem
     # Plotar os resultados
     plt.plot(t, filtered_impulso, label="Disparo do Neurônio (Filtrado)")
     plt.title("Tempos de Disparo do Neurônio (Filtrado)")
-    plt.xlabel("Tempo (ms)")
+    plt.xlabel("Tempo (s)")
     plt.ylabel("Amplitude")
     plt.xlim(0, tempo_max)
     plt.grid(True)
@@ -98,7 +98,7 @@ def plot_disparos_neuronios(spiketrains, neuronio, delta_t=0.00005, filtro_ordem
     plt.figure(figsize=(10, 6))
     plt.plot(t, impulso_dirac, label="Disparo do Neurônio (Impulso de Dirac)")
     plt.title("Tempos de Disparo do Neurônio (Impulso de Dirac)")
-    plt.xlabel("Tempo (ms)")
+    plt.xlabel("Tempo (s)")
     plt.ylabel("Amplitude")
     plt.xlim(0, tempo_max)
     plt.grid(True)
@@ -107,7 +107,7 @@ def plot_disparos_neuronios(spiketrains, neuronio, delta_t=0.00005, filtro_ordem
 
 #plot_disparos_neuronios(data.spiketrains, neuronio=1)
 
-def neuromuscular_system(cells, n):   
+def neuromuscular_system(cells, n, h):   
     muscle_units = dict()
     force_objects = dict()
     neuromuscular_junctions = dict()
@@ -125,7 +125,7 @@ def neuromuscular_system(cells, n):
     
     return muscle_units, force_objects, neuromuscular_junctions
 
-def neuromuscular_system(cells, n, h, Umax = 1000):   
+def neuromuscular_system(cells, n, h, Umax = 1600, Rmax=8):   
     muscle_units = dict()
     force_objects = dict()
     neuromuscular_junctions = dict()
@@ -138,7 +138,8 @@ def neuromuscular_system(cells, n, h, Umax = 1000):
         force_objects[i].Fmax = 0.03 + (3 - 0.03) * i / n
         force_objects[i].Tc = 140 + (96 - 140) * i / n
         force_objects[i].Umax =  Umax 
-        
+        force_objects[i].Rmax= Rmax
+        neuromuscular_junctions[i].delay = 0.86/(44+ 9*i/n) * 1000
     
     return muscle_units, force_objects, neuromuscular_junctions
 

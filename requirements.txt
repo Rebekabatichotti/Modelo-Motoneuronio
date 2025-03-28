@@ -1,6 +1,6 @@
 numpy==1.26
 scipy
-pynn
+git+https://github.com/rnwatanabe/PyNN
 matplotlib
 pyNeuroML
 libNeuroML

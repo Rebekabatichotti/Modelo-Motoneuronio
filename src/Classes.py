@@ -129,7 +129,7 @@ class KsChannel(StandardIonChannelModel):
             "e_rev": float,
             "vt": float
         }
-class SetRate(object):
+class SetRate_initial(object):
     """
     A callback which changes the firing rate of a population of poisson
     processes at a fixed interval.
@@ -176,7 +176,7 @@ class SpikeSourceGammaStart(SpikeSourceGamma):
     model = RandomGammaStartSpikeSource
 
     # Classe SetRate para alterar a taxa de disparo
-class SetRate(object):
+class SetRate_1(object):
     """
     Um callback que altera a taxa de disparo de uma população de processos
     Poisson em intervalos fixos, com base nas forças das unidades motoras.
@@ -195,7 +195,7 @@ class SetRate(object):
     
         return t + self.interval
     
-class SetRate(object):
+class SetRate_2(object):
     """
     Um callback que altera a taxa de disparo de uma população de processos
     Poisson em intervalos fixos, com base nas forças das unidades motoras.
@@ -215,7 +215,32 @@ class SetRate(object):
         self.population_source.set(beta=rate)
         
         return t + self.interval
+    
+class SetRate(object):
+    """
+    Um callback que altera a taxa de disparo de uma população de processos
+    Poisson em intervalos fixos, com base nas forças das unidades motoras.
+    """
 
+    def __init__(self, population_source, population_neuron, force_objects, interval=20.0, ref=0):
+        self.population_source = population_source
+        self.population_neuron = population_neuron
+        self.force_objects = force_objects  
+        self.interval = interval
+        self.ref = ref 
+        self.Fint = 0
+        print(f'valor: {self.ref}')
+
+    def __call__(self, t):
+        forca_total = 0
+        
+        for i in self.force_objects.keys():
+            forca_total = forca_total + self.force_objects[i].F
+        self.Fint = self.Fint +  (self.ref -forca_total)*0.05
+        rate = 10 + ((self.ref - forca_total) * 0.01 + 0.1*self.Fint)
+        self.population_source.set(beta=rate)
+        
+        return t + self.interval
     
 
 
