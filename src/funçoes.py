@@ -56,15 +56,14 @@ from scipy import signal
 
 def plot_disparos_neuronios(spiketrains, neuronio, delta_t=0.00005, filtro_ordem=4, freq_corte=0.001, tempo_max=1000):
     """
-    Função que gera o impulso de Dirac para os tempos de disparo de um neurônio.
-    
-    Parâmetros:
-        spiketrains: Lista com os trens de disparo de neurônios.
-        neuronio: Índice do neurônio a ser processado.
-        delta_t: Intervalo de tempo. 
-        filtro_ordem : Ordem do filtro Butterworth. 
-        freq_corte: Frequência de corte normalizada para o filtro Butterworth.
-        tempo_max: Tempo máximo para o eixo x (em milissegundos). 
+    Function that generates the Dirac impulse for the firing times of a neuron.
+        Parameters:
+        spiketrains: List of neuron firing trains.
+        neuronio: Index of the neuron to be processed.
+        delta_t: Time interval. 
+        filtro_ordem : Order of the Butterworth filter. 
+        freq_corte: Normalized cut-off frequency for the Butterworth filter.
+        tempo_max: Maximum time for the x-axis (in milliseconds). 
     """
     
     # Array com os tempos de disparo do neurônio
@@ -147,14 +146,14 @@ def neuromuscular_system(cells, n, h, Umax = 1000):
 def soma_força(force_objects, h, f):
     max_len = max(len(f[i]) for i in force_objects.keys())
     
-    # Cria um vetor para armazenar a força total ao longo do tempo
+   #Creates a vector to store the total force over time
     forca_total = h.Vector(max_len)
-    forca_total.fill(0)  # Inicializa com zeros
+    forca_total.fill(0)  # Initializes with zeros
     
-    # Soma as forças de todas as unidades motoras
+  # Sum the forces of all motor units
     for i in force_objects.keys():
         forca_individual = f[i]
-        forca_total.add(forca_individual)  # Adiciona cada vetor de força ao total
+        forca_total.add(forca_individual)  # Add each force vector to the total
         
     return forca_total
 

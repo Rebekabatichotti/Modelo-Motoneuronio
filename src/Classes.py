@@ -175,13 +175,8 @@ class SpikeSourceGammaStart(SpikeSourceGamma):
     )
     model = RandomGammaStartSpikeSource
 
-    # Classe SetRate para alterar a taxa de disparo
+    # SetRate class to change the firing rate
 class SetRate(object):
-    """
-    Um callback que altera a taxa de disparo de uma população de processos
-    Poisson em intervalos fixos, com base nas forças das unidades motoras.
-    """
-
     def __init__(self, population_source, population_neuron, force_objects, interval=20.0):
         self.population_source = population_source
         self.population_neuron = population_neuron
@@ -196,11 +191,6 @@ class SetRate(object):
         return t + self.interval
     
 class SetRate(object):
-    """
-    Um callback que altera a taxa de disparo de uma população de processos
-    Poisson em intervalos fixos, com base nas forças das unidades motoras.
-    """
-
     def __init__(self, population_source, population_neuron, force_objects, interval=20.0, ref=0):
         self.population_source = population_source
         self.population_neuron = population_neuron
@@ -218,9 +208,10 @@ class SetRate(object):
     
 class SetRateIntControl(object):
     """
-Um callback que altera a taxa de disparo de uma população de processos
-Poisson em intervalos fixos, com base nas forças das unidades motoras.
-"""
+    A callback which changes the firing rate of a population of poisson
+    processes at a fixed interval.
+    """
+
 
     def __init__(self, population_source, population_neuron, force_objects, interval=20.0, ref=0):
         self.population_source = population_source

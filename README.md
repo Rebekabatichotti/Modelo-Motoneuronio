@@ -1,14 +1,13 @@
-# Modelo-Motoneurônio
+# Motoneuron-model
 
 Rebeka Batichotti
 
 Renato Watanabe
 
-## Preparando o ambiente
+## Preparing the environment
+### Linux
 
-### No Linux
-
-Executar as seguintes instruções:
+Follow the instructions below:
 
 `python -m venv modelpynn`
 
@@ -16,9 +15,9 @@ Executar as seguintes instruções:
 
 `pip install -r requirements.txt`
 
-### No Windows
+### Windows
 
-Executar as seguintes instruções:
+Follow the instructions below:
 
 `python -m venv modelpynn`
 
@@ -27,23 +26,23 @@ Executar as seguintes instruções:
 `pip install -r requirements.txt`
 
 
-## Instalação do Neuron
+## Neuron installation
 
-Instalar o Neuron separadamente. Como no Windows ele não pode ser instalado via pip, ele não foi incluído no arquivo requirements.txt. 
+Install Neuron separately. As it cannot be installed via pip in Windows, it has not been included in the requirements.txt file.
 
-### No Linux
+### Linux
 
-digitar no terminal:
+type in the terminal:
 
 `pip install neuron`
 
-### No Windows
+### Windows
 
-Instalar o Neuron com o instalador em [https://github.com/neuronsimulator/nrn/releases/download/8.2.0/nrn-8.2.0.w64-mingw-py-37-38-39-310-setup.exe](https://github.com/neuronsimulator/nrn/releases/download/8.2.0/nrn-8.2.0.w64-mingw-py-37-38-39-310-setup.exe).
+Install Neuron with the installer at [https://github.com/neuronsimulator/nrn/releases/download/8.2.0/nrn-8.2.0.w64-mingw-py-37-38-39-310-setup.exe](https://github.com/neuronsimulator/nrn/releases/download/8.2.0/nrn-8.2.0.w64-mingw-py-37-38-39-310-setup.exe).
 
-Após a instalação o VS Code deve ser reinicializado para que variável de ambiente PYTHONPATH tenha o caminho do Neuron.
+After installation, VS Code must be restarted so that the PYTHONPATH environment variable has the Neuron path.
 
-## Teste
+## Test
 
-Por enquanto, a melhor maneira de testar é executar todas as células do arquivo [testeRede.ipynb](testeRede.ipynb). Pegar a última versão do arquivo.
+For now, the best way to test is to run all the cells in the[testeRede.ipynb](testeRede.ipynb). Get the latest version of the file.
 
